@@ -1,0 +1,46 @@
+POST http://localhost:3000/auth/challenge
+Content-Type:application/json
+
+{
+    "address":"0x1234567890123456789012345678901234567890"
+}
+
+
+### Request a voting token
+POST http://localhost:3000/voting/tokens/request
+Content-Type: application/json
+
+{
+  "pollId": "1234567890123456"
+}
+
+### Request a voting token (with different pollId)
+POST http://localhost:3000/voting/tokens/request
+Content-Type: application/json
+
+{
+  "pollId": "9876543210987654"
+}
+
+### Request a voting token (invalid pollId format)
+POST http://localhost:3000/voting/tokens/request
+Content-Type: application/json
+
+{
+  "pollId": "abc"
+}
+
+### Request a voting token (missing pollId)
+POST http://localhost:3000/voting/tokens/request
+Content-Type: application/json
+
+{}
+
+### Request a voting token (with authentication - if required)
+POST http://localhost:3000/voting/tokens/request
+Content-Type: application/json
+Authorization: Bearer YOUR_JWT_TOKEN_HERE
+
+{
+  "pollId": "1234567890123456"
+}

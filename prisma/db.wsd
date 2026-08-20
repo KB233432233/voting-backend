@@ -1,0 +1,127 @@
+@startuml ''
+!theme plain
+skinparam linetype ortho
+skinparam shadowing false
+skinparam handwritten false
+
+entity polls {
+    * id : BIGINT <<PK>>
+    --
+    name : VARCHAR(255)
+    description : TEXT
+    start_date : TIMESTAMPTZ
+    end_date : TIMESTAMPTZ
+    status : VARCHAR(20)
+    created_at : TIMESTAMPTZ
+}
+
+entity users {
+    * id : BIGINT <<PK>>
+    --
+    email : VARCHAR(255)
+    password_hash : VARCHAR(255)
+    full_name : VARCHAR(255)
+    is_eligible : BOOLEAN
+    created_at : TIMESTAMPTZ
+}
+
+entity wallets {
+    * id : BIGINT <<PK>>
+    --
+    user_id : BIGINT <<FK,UNIQ>>
+    address : VARCHAR(42) <<UNIQ>>
+    chain : VARCHAR(20)
+    created_at : TIMESTAMPTZ
+}
+
+entity candidates {
+    * id : BIGINT <<PK>>
+    --
+    poll_id : BIGINT <<FK>>
+    name : VARCHAR(255)
+    description : TEXT
+}
+
+entity voting_tokens {
+    * id : BIGINT <<PK>>
+    --
+    user_id : BIGINT <<FK>>
+    poll_id : BIGINT <<FK>>
+    token_hash : VARCHAR(64) <<UNIQ>>
+    issued_at : TIMESTAMPTZ
+    used_at : TIMESTAMPTZ
+    status : VARCHAR(10)
+}
+
+entity votes {
+    * id : BIGINT <<PK>>
+    --
+    user_id : BIGINT <<FK>>
+    poll_id : BIGINT <<FK>>
+    serial : BYTEA <<UNIQ>>
+    vote_hash : BYTEA
+    signature : BYTEA
+    cast_at : TIMESTAMPTZ
+    --
+    UNIQUE(user_id, poll_id)
+}
+
+entity transactions {
+    * id : BIGINT <<PK>>
+    --
+    user_id : BIGINT <<FK>>
+    poll_id : BIGINT <<FK>>
+    vote_id : BIGINT <<FK,UNIQ>>
+    tx_hash : VARCHAR(66) <<UNIQ>>
+    chain : VARCHAR(20)
+    status : VARCHAR(20)
+    block_number : BIGINT
+    confirmations : INTEGER
+    nonce : INTEGER
+    retries : INTEGER
+    gas_used : BIGINT
+    gas_price : BIGINT
+    error_message : TEXT
+    payload : JSONB
+    created_at : TIMESTAMPTZ
+    updated_at : TIMESTAMPTZ
+    confirmed_at : TIMESTAMPTZ
+}
+
+entity tally_results {
+    * id : BIGINT <<PK>>
+    --
+    poll_id : BIGINT <<FK,UNIQ>>
+    winner_candidate_id : BIGINT <<FK>>
+    results_data : JSONB
+    status : VARCHAR(20)
+    computed_at : TIMESTAMPTZ
+}
+
+' === RELATIONSHIPS ===
+users ||--o{ voting_tokens : "issues (1:N)"
+users ||--o{ votes : "casts (1:N)"
+users ||--|| wallets : "owns (1:1)"
+users ||--o{ transactions : "initiates (1:N)"
+
+polls ||--o{ candidates : "contains (1:N)"
+polls ||--o{ voting_tokens : "scoped (1:N)"
+polls ||--o{ votes : "tracks (1:N)"
+polls ||--o{ transactions : "records (1:N)"
+polls ||--|| tally_results : "produces (1:1)"
+
+votes ||--|| transactions : "bridges off↔on chain (1:1)"
+
+note right of transactions
+  Status Flow:
+  pending → broadcast → confirmed
+  pending → failed → dropped
+  Tracks lifecycle & on-chain proof
+end note
+
+note bottom of votes
+  Cryptographic commitment only.
+  Rankings NEVER stored here.
+end note
+
+@enduml

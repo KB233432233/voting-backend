@@ -1,0 +1,69 @@
+@startuml ''
+skinparam componentStyle rectangle
+skinparam linetype ortho
+skinparam shadowing false
+skinparam defaultFontSize 12
+skinparam backgroundColor #FFFFFF
+
+title Blind Signature Voting Architecture
+
+package "Frontend (Browser/React)" {
+  [Web UI] as UI
+  [Crypto Module] as Crypto
+  note right of Crypto: blindVote() / unblindSignature()\nUses RSA Public Key (N, E)
+}
+
+package "Backend API (Express/TS)" {
+  [Eligibility & Audit] as Auth
+  [Signature Issuer] as Issuer
+  [Vote Validator] as Validator
+  [REST Router] as API
+}
+
+package "Async Workers" {
+  [Tally Service] as Tally
+  [BullMQ Queue] as Queue
+}
+
+database "PostgreSQL (Prisma)" as DB {
+  [profiles] as Profiles
+  [audit_logs] as Audit
+  [encrypted_messages] as Msgs
+  [zk_proofs] as Proofs
+  [tallies / tally_results] as Results
+}
+
+artifact "Key Management" as Keys {
+  [RSA Private Key] as PrivKey
+  [RSA Public Key] as PubKey
+}
+
+queue "Redis" as Redis
+
+' --- Flow ---
+UI --> Crypto : 1. User selects vote, generates nonce
+Crypto --> Issuer : 2. POST /request-signature {blindedHash}
+Issuer --> Auth : 3. Check Profile.isEligible
+Auth --> Profiles : Query DB
+Issuer --> Audit : 4. Check issuance log (replay prevention)
+Audit --> DB : Query
+Issuer --> Keys : 5. Blind-sign with Private Key
+Keys --> Issuer : Signed blinded hash
+Issuer --> Crypto : 6. Return signature
+Crypto --> UI : Unblind signature locally
+UI --> Validator : 7. POST /vote {signature, encryptedPayload}
+Validator --> Keys : 8. Verify with Public Key
+Validator --> Msgs : 9. Check payloadHash in rawData
+Validator --> DB : Store Msgs + Proofs + Audit
+Validator --> Queue : 10. Queue async tally job
+Queue --> Tally : Trigger when Poll.status = ENDED
+Tally --> Msgs : Fetch verified signed votes
+Tally --> Results : Decrypt, aggregate, write TallyResult
+Tally --> Audit : Log TALLY_VERIFIED
+
+skinparam componentBackgroundColor #E3F2FD
+skinparam packageBackgroundColor #F5F5F5
+skinparam databaseBackgroundColor #FFF3E0
+skinparam artifactBackgroundColor #F3E5F5
+skinparam queueBackgroundColor #E8F5E9
+@enduml

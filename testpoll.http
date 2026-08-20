@@ -1,0 +1,66 @@
+### Environment Variables
+@baseUrl = http://localhost:3000
+@accessToken = super_secret_random_string_change_this_in_production
+
+### ==================== 1. CREATE POLL ====================
+
+### Create a new poll (minimal fields)
+POST {{baseUrl}}/polls
+Content-Type: application/json
+cookies: accessToken={{accessToken}}
+
+{
+    "name": "Board Election 2026",
+    "endDate": "2026-07-01T23:59:59Z"
+}
+
+### Save the created poll ID from response
+> {%
+    // Try different possible response structures
+    let pollId = null;
+    
+    if (response.body.id) {
+        pollId = response.body.id;
+    } else if (response.body.data && response.body.data.id) {
+        pollId = response.body.data.id;
+    } else if (response.body.poll && response.body.poll.id) {
+        pollId = response.body.poll.id;
+    }
+    
+    if (pollId) {
+        client.global.set("pollId", pollId);
+        client.log("✅ Poll created with ID: " + pollId);
+    } else {
+        client.log("❌ Could not extract poll ID from response");
+        client.log("Response body: " + JSON.stringify(response.body));
+    }
+%}
+
+### ==================== 2. LIST POLLS ====================
+
+### List polls with pagination
+GET {{baseUrl}}/polls?page=1&limit=10
+cookies: accessToken={{accessToken}}
+
+### ==================== 3. GET SINGLE POLL ====================
+
+### Get poll by ID (using saved pollId)
+GET {{baseUrl}}/polls/{{pollId}}
+cookies: accessToken={{accessToken}}
+
+### ==================== 4. UPDATE POLL ====================
+
+### Update poll - activate
+PATCH {{baseUrl}}/polls/{{pollId}}
+Content-Type: application/json
+cookies: accessToken={{accessToken}}
+
+{
+    "status": "active"
+}
+
+### ==================== 5. DELETE POLL ====================
+
+### Delete poll (only works for draft polls with no votes)
+DELETE {{baseUrl}}/polls/{{pollId}}
+cookies: accessToken={{accessToken}}
