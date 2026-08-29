@@ -3,7 +3,7 @@
     // Output and source layout
     "rootDir": "./src",              // Compile only src/, not root
     "outDir": "./dist",
-    "ignoreDeprecations": "6.0"              // Emit all files to dist/
+    "ignoreDeprecations": "6.0",              // Emit all files to dist/
 
     // Environment: Node.js
     "target": "ES2020",              // Node 14+ supports ES2020
