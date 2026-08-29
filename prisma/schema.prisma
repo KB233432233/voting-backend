@@ -217,3 +217,15 @@ model PollWhitelist {
   @@unique([pollId, userId])
   @@map("poll_whitelist")
 }
+
+model OrgApplication {
+  id BigInt @id
+  organizationName String
+  legalName String
+  registrationNumber String
+  address String
+  emailAddress String
+  walletAddress String
+
+  @@map("org_application")
+}

@@ -15,6 +15,7 @@ import { voteRouter } from "./routes/vote.routes.ts";
 import { transactionRouter } from "./routes/transaction.routes.ts";
 import { tallyResultRouter } from "./routes/tallyResult.routes.ts";
 import { startPollCloser } from './workers/pollCloser.ts';
+import { applicationRouter } from "./routes/Applications.routes.ts";
 // import { startRelayerWorker } from "./workers/relayer.worker.ts";
 
 // Load environment variables
@@ -52,6 +53,7 @@ app.use("/voting-tokens", votingTokenRouter);
 app.use("/votes", voteRouter);
 app.use("/transactions", transactionRouter);
 app.use("/tally-results", tallyResultRouter);
+app.use("/applications", applicationRouter);
 
 // Error Handling Middleware
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {

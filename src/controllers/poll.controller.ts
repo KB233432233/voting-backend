@@ -5,6 +5,8 @@ import { z } from "zod";
 import { generateSnowflakeIdBigInt } from "../utils/snowflake.ts";
 import { getPollChainState } from "../utils/chainVoting.ts";
 
+import { Prisma } from "@prisma/client"; 
+
 // Validation schemas
 const createPollSchema = z.object({
   name: z.string().min(3).max(255),
@@ -35,6 +37,11 @@ const querySchema = z.object({
   createdById: z.string().optional(),
 });
 
+const searchQuerySchema = z.object({
+  q: z.string().min(1, "Search query cannot be empty"),
+  page: z.coerce.number().int().positive().default(1),
+  limit: z.coerce.number().int().positive().max(100).default(20),
+});
 /**
  * POST /polls
  * Create a new poll (starts in 'draft' status)
@@ -345,6 +352,67 @@ export async function deletePoll(
       .json({ success: true, message: "Poll deleted successfully" });
   } catch (error) {
     console.error("Delete poll error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+}
+
+
+export async function searchPolls(
+  req: AuthenticatedRequest,
+  res: Response,
+): Promise<void> {
+  try {
+    const parse = searchQuerySchema.safeParse(req.query);
+    if (!parse.success) {
+      res
+        .status(400)
+        .json({ error: "Invalid search params", details: parse.error.issues });
+      return;
+    }
+
+    const { q, page, limit } = parse.data;
+    const skip = (page - 1) * limit;
+    const searchTerm = q.trim();
+
+    const where: Prisma.PollWhereInput = {
+      name: {
+        contains: searchTerm,
+        mode: Prisma.QueryMode.insensitive,   // ✅ correct enum value
+      },
+    };
+
+    const [polls, total] = await prisma.$transaction([
+      prisma.poll.findMany({
+        where,
+        orderBy: { createdAt: "desc" },
+        skip,
+        take: limit,
+        include: { _count: { select: { candidates: true } } },
+      }),
+      prisma.poll.count({ where }),
+    ]);
+
+    res.status(200).json({
+      success: true,
+      data: polls.map((p) => ({
+        id: p.id.toString(),
+        chainPollId: p.chainPollId?.toString() ?? null,
+        name: p.name,
+        description: p.description,
+        photoUrl: p.photoUrl,
+        startDate: p.startDate,
+        endDate: p.endDate,
+        status: p.status,
+        voteType: p.voteType,
+        maxChoices: p.maxChoices,
+        candidateCount: p._count.candidates,
+        createdById: p.createdById?.toString() ?? null,
+        createdAt: p.createdAt,
+      })),
+      pagination: { page, limit, total, totalPages: Math.ceil(total / limit) },
+    });
+  } catch (error) {
+    console.error("Search polls error:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 }

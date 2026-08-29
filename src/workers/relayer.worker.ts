@@ -39,6 +39,7 @@ export const relayerWorker = async(data: any) => {
       serial: string;
       rankings: number[];
       gasLimit?: string;
+      pollId: number;
     };
     // Mark as broadcasting
     await prisma.transaction.update({
@@ -52,8 +53,7 @@ export const relayerWorker = async(data: any) => {
       }
 
       const tx = await votingContract.vote(
-        // data.pollId,
-        14,
+        data.pollId,
         rankings.map(id => BigInt(id)),
         { gasLimit: gasLimit ? BigInt(gasLimit) : undefined }
       );

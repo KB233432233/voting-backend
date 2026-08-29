@@ -6,6 +6,7 @@ import { generateSnowflakeIdBigInt } from "../utils/snowflake.ts";
 import { hasPermission } from "../types/auth.ts";
 import {PERMISSIONS, ROLE_PERMISSIONS} from "../types/auth.ts";
 import type { UserRole } from "../types/auth.ts";
+import { tryCatch } from "bullmq";
 // Validation Schemas
 const createUserSchema = z.object({
   email: z.string().email("Invalid email format"),

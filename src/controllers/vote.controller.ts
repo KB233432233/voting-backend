@@ -227,7 +227,7 @@ export async function createVote(
       serial: Buffer.from(vote.serial).toString("hex"),
       rankings: rankings,
       gasLimit: "210000",
-      pollId: pollIdBigInt
+      pollId: poll.chainPollId
     });
 
     res
