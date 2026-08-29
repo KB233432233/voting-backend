@@ -1,55 +1,37 @@
 {
-  // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
-    // File Layout
-    // "rootDir": "./src",
-    // "outDir": "./dist",
+    // Output and source layout
+    "rootDir": "./src",              // Compile only src/, not root
+    "outDir": "./dist",
+    "ignoreDeprecations": "6.0"              // Emit all files to dist/
 
-    // Environment Settings
-    // See also https://aka.ms/tsconfig/module
-    "module": "commonjs",
-    "target": "ES2020",
-    "types": ["node"],
-    // For nodejs:
-    // "lib": ["esnext"],
-    // "types": ["node"],
-    // and npm install -D @types/node
+    // Environment: Node.js
+    "target": "ES2020",              // Node 14+ supports ES2020
+    "module": "commonjs",            // CommonJS for Node
+    "moduleResolution": "node",      // Standard Node resolution
+    "esModuleInterop": true,         // Enables default imports from CommonJS
+    "types": ["node"],               // Include Node types
+    "resolveJsonModule": true,       // Allow importing JSON
 
-    // Other Outputs
-    "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
+    // Type-checking strictness
+    "strict": true,                  // Enable all strict checks
+    "skipLibCheck": true,            // Skip type checking of declaration files
+    "forceConsistentCasingInFileNames": true,
 
-    // Stricter Typechecking Options
-    "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
+    // Additional outputs
+    "sourceMap": true,               // For debugging
+    "declaration": false,            // Not needed unless you're publishing
 
-    // Style Options
-    // "noImplicitReturns": true,
-    // "noImplicitOverride": true,
-    // "noUnusedLocals": true,
-    // "noUnusedParameters": true,
-    // "noFallthroughCasesInSwitch": true,
-    // "noPropertyAccessFromIndexSignature": true,
-
-    // Recommended Options
-    "strict": true,
-    "jsx": "react-jsx",
+    // Exclude these from compilation
+    "allowImportingTsExtensions": false,  // Don't allow .ts imports
+    "noEmit": false,                       // ✅ Ensures output is generated!
     "verbatimModuleSyntax": false,
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
-    "skipLibCheck": true,
-
-    "outDir": "./dist",
-    "rootDir": "./",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "allowImportingTsExtensions": true,
-    "noEmit": true
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true
   },
-  "include": ["src/**/*", "prisma.config.ts"],
-  "exclude": ["node_modules", "dist", "prisma"]
+  "include": ["src/**/*"],           // Only compile files in src/
+  "exclude": ["node_modules", "dist", "prisma", "**/*.test.ts"]
 }
