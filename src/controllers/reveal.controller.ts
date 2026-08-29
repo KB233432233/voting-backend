@@ -1,10 +1,10 @@
 import { Response } from "express";
 import { z } from "zod";
 import crypto from "crypto";
-import prisma from "../config/db.ts";
-import type { AuthenticatedRequest } from "../types/auth.ts";
-import { generateSnowflakeIdBigInt } from "../utils/snowflake.ts";
-import { encryptRankings } from "../utils/voteEncryption.ts";
+import prisma from "../config/db";
+import type { AuthenticatedRequest } from "../types/auth";
+import { generateSnowflakeIdBigInt } from "../utils/snowflake";
+import { encryptRankings } from "../utils/voteEncryption";
 import { Prisma } from "@prisma/client";
 import { modPow } from "bigint-mod-arith";
 

@@ -1,11 +1,11 @@
 import type { Response } from "express";
-import type { AuthenticatedRequest } from "../types/auth.ts";
-import prisma from "../config/db.ts";
+import type { AuthenticatedRequest } from "../types/auth";
+import prisma from "../config/db";
 import { z } from "zod";
-import { generateSnowflakeIdBigInt } from "../utils/snowflake.ts";
-import { hasPermission } from "../types/auth.ts";
-import {PERMISSIONS, ROLE_PERMISSIONS} from "../types/auth.ts";
-import type { UserRole } from "../types/auth.ts";
+import { generateSnowflakeIdBigInt } from "../utils/snowflake";
+import { hasPermission } from "../types/auth";
+import {PERMISSIONS, ROLE_PERMISSIONS} from "../types/auth";
+import type { UserRole } from "../types/auth";
 import { tryCatch } from "bullmq";
 // Validation Schemas
 const createUserSchema = z.object({

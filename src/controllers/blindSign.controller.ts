@@ -1,12 +1,12 @@
 import type { Response } from "express";
-import type { AuthenticatedRequest } from "../types/auth.ts";
-import prisma from "../config/db.ts";
+import type { AuthenticatedRequest } from "../types/auth";
+import prisma from "../config/db";
 import crypto from "crypto";
 import  z  from "zod";
 import {
   getPollChainState,
   chainStateToStatus,
-} from "../utils/chainVoting.ts";
+} from "../utils/chainVoting";
 
 const blindSignSchema = z.object({
   token: z.string().min(1, "Token is required"),

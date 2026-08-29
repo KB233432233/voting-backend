@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { requireAuth } from "../middleware/auth.ts";
-import { requirePermission } from "../middleware/requirePermission.ts";
-import { createPoll, getPolls, getPoll, updatePoll, deletePoll, searchPolls } from "../controllers/poll.controller.ts";
-import { addToWhitelist, removeFromWhitelist, getWhitelist } from "../controllers/pollWhitelist.controller.ts";
+import { requireAuth } from "../middleware/auth";
+import { requirePermission } from "../middleware/requirePermission";
+import { createPoll, getPolls, getPoll, updatePoll, deletePoll, searchPolls } from "../controllers/poll.controller";
+import { addToWhitelist, removeFromWhitelist, getWhitelist } from "../controllers/pollWhitelist.controller";
 
 const pollRouter = Router();
 

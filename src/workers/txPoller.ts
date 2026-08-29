@@ -1,5 +1,5 @@
 import { ethers, TransactionReceipt } from "ethers";
-import prisma from "../config/db.ts";
+import prisma from "../config/db";
 import { Prisma } from "@prisma/client";
 
 const POLL_INTERVAL_MS = parseInt(process.env.POLL_INTERVAL_MS || "15000", 10);

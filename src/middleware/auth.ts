@@ -1,9 +1,9 @@
 import type { Response, NextFunction } from "express";
-import type { AuthenticatedRequest } from "../types/auth.ts";
+import type { AuthenticatedRequest } from "../types/auth";
 import Redis from "ioredis";
 import crypto from "crypto";
-import { VALIDATE_NONCE_SCRIPT } from "../utils/redis-scripts.ts";
-import { verifyAccessToken } from "../utils/jwt.ts";
+import { VALIDATE_NONCE_SCRIPT } from "../utils/redis-scripts";
+import { verifyAccessToken } from "../utils/jwt";
 import type { TokenExpiredError, JsonWebTokenError } from "jsonwebtoken";
 
 const JWT_SECRET = process.env.JWT_SECRET;

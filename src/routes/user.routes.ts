@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { requireAuth } from "../middleware/auth.ts";
-import { requirePermission } from "../middleware/requirePermission.ts";
-import { createUser, getUsers, getUser, updateUser, updateSelf, deleteUser, updateUserRole, onboardWallet } from "../controllers/user.controller.ts";
+import { requireAuth } from "../middleware/auth";
+import { requirePermission } from "../middleware/requirePermission";
+import { createUser, getUsers, getUser, updateUser, updateSelf, deleteUser, updateUserRole, onboardWallet } from "../controllers/user.controller";
 
 const userRouter = Router();
 

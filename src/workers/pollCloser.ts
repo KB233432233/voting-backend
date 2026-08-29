@@ -1,5 +1,5 @@
 import cron from 'node-cron';
-import prisma from '../config/db.ts';
+import prisma from '../config/db';
 import { Prisma } from '@prisma/client';
 import { ethers } from "ethers";
 

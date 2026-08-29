@@ -1,6 +1,6 @@
-import prisma from "../config/db.ts";
-import { generateSnowflakeIdBigInt } from "../utils/snowflake.ts";
-import { decryptRankings } from "../utils/voteEncryption.ts";
+import prisma from "../config/db";
+import { generateSnowflakeIdBigInt } from "../utils/snowflake";
+import { decryptRankings } from "../utils/voteEncryption";
 
 /**
  * Interface representing a candidate in the poll

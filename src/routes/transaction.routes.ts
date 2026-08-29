@@ -1,13 +1,13 @@
 import { Router } from "express";
-import { requireAuth } from "../middleware/auth.ts";
-import { requirePermission } from "../middleware/requirePermission.ts";
+import { requireAuth } from "../middleware/auth";
+import { requirePermission } from "../middleware/requirePermission";
 import {
   createTransaction,
   getTransactions,
   getTransaction,
   updateTransaction,
   deleteTransaction,
-} from "../controllers/transaction.controller.ts";
+} from "../controllers/transaction.controller";
 
 const transactionRouter = Router();
 

@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { requireAuth } from "../middleware/auth.ts";
-import { requirePermission } from "../middleware/requirePermission.ts";
-import { runTally } from "../workers/tallyEngine.ts"; // Adjust path if needed
+import { requireAuth } from "../middleware/auth";
+import { requirePermission } from "../middleware/requirePermission";
+import { runTally } from "../workers/tallyEngine"; // Adjust path if needed
 
 const tallyRouter = Router();
 

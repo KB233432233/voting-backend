@@ -1,13 +1,13 @@
 import { Router } from "express";
-import { requireAuth } from "../middleware/auth.ts";
-import { requirePermission } from "../middleware/requirePermission.ts";
+import { requireAuth } from "../middleware/auth";
+import { requirePermission } from "../middleware/requirePermission";
 import {
   createTallyResult,
   getTallyResults,
   getTallyResult,
   updateTallyResult,
   deleteTallyResult,
-} from "../controllers/tallyResult.controller.ts";
+} from "../controllers/tallyResult.controller";
 
 const tallyResultRouter = Router();
 

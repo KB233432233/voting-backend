@@ -1,13 +1,13 @@
 import { Router } from "express";
-import { requireAuth } from "../middleware/auth.ts";
-import { requirePermission } from "../middleware/requirePermission.ts";
+import { requireAuth } from "../middleware/auth";
+import { requirePermission } from "../middleware/requirePermission";
 import {
   createVotingToken,
   getVotingTokens,
   getVotingToken,
   updateVotingToken,
   deleteVotingToken,
-} from "../controllers/votingToken.controller.ts";
+} from "../controllers/votingToken.controller";
 
 const votingTokenRouter = Router();
 

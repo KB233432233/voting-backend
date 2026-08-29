@@ -1,6 +1,6 @@
 
 import { ethers } from "ethers";
-import prisma from "../config/db.ts";
+import prisma from "../config/db";
 
 const RPC_URL = process.env.RPC_URL!;
 const RELAYER_PRIVATE_KEY = process.env.RELAYER_PRIVATE_KEY!;

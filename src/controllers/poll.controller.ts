@@ -1,9 +1,9 @@
 import type { Response } from "express";
-import type { AuthenticatedRequest } from "../types/auth.ts";
-import prisma from "../config/db.ts";
+import type { AuthenticatedRequest } from "../types/auth";
+import prisma from "../config/db";
 import { z } from "zod";
-import { generateSnowflakeIdBigInt } from "../utils/snowflake.ts";
-import { getPollChainState } from "../utils/chainVoting.ts";
+import { generateSnowflakeIdBigInt } from "../utils/snowflake";
+import { getPollChainState } from "../utils/chainVoting";
 
 import { Prisma } from "@prisma/client"; 
 

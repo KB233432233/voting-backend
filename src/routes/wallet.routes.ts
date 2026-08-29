@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { requireAuth } from "../middleware/auth.ts";
-import { requirePermission } from "../middleware/requirePermission.ts";
-import { createWallet, getWallets, getWallet, getWalletByUser, updateWallet, deleteWallet } from "../controllers/wallet.controller.ts";
+import { requireAuth } from "../middleware/auth";
+import { requirePermission } from "../middleware/requirePermission";
+import { createWallet, getWallets, getWallet, getWalletByUser, updateWallet, deleteWallet } from "../controllers/wallet.controller";
 
 const walletRouter = Router();
 

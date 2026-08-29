@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { requireAuth } from "../middleware/auth.ts";
-import { requirePermission } from "../middleware/requirePermission.ts";
-import { requestToken } from "../controllers/token.controller.ts";
-import { blindSign } from "../controllers/blindSign.controller.ts";
-import { tokenRequestLimiter, blindSignLimiter } from "../middleware/rateLimit.ts";
-import { getVotingPublicKey } from "../controllers/publicKey.controller.ts";
+import { requireAuth } from "../middleware/auth";
+import { requirePermission } from "../middleware/requirePermission";
+import { requestToken } from "../controllers/token.controller";
+import { blindSign } from "../controllers/blindSign.controller";
+import { tokenRequestLimiter, blindSignLimiter } from "../middleware/rateLimit";
+import { getVotingPublicKey } from "../controllers/publicKey.controller";
 
 const votingRouter = Router();
 

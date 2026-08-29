@@ -1,10 +1,10 @@
 import type { Request, Response } from "express";
-import type { AuthenticatedRequest } from "../types/auth.ts";
+import type { AuthenticatedRequest } from "../types/auth";
 import { verifyMessage } from "ethers";
 import jwt from "jsonwebtoken";
 import { z } from "zod";
-import prisma from "../config/db.ts";
-import { createNonce, validateNonce } from "../middleware/auth.ts";
+import prisma from "../config/db";
+import { createNonce, validateNonce } from "../middleware/auth";
 import Redis from "ioredis";
 import crypto from "crypto";
 import type { UserRole } from "../utils/permissions.ts";

@@ -1,6 +1,6 @@
 
 import Redis from "ioredis";
-import { getRelayerWallet } from "../config/relayer.ts";
+import { getRelayerWallet } from "../config/relayer";
 
 const redis = new Redis(process.env.REDIS_URL || "redis://localhost:6379");
 const NONCE_KEY = "relayer:nonce";

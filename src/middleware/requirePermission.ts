@@ -1,7 +1,7 @@
 import type { Response, NextFunction } from "express";
-import type { AuthenticatedRequest } from "../types/auth.ts";
-import type {  Permission } from "../utils/permissions.ts";
-import { hasPermission } from "../types/auth.ts";
+import type { AuthenticatedRequest } from "../types/auth";
+import type {  Permission } from "../utils/permissions";
+import { hasPermission } from "../types/auth";
 
 export function requirePermission(required: Permission) {
   return async (

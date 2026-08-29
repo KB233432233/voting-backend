@@ -1,13 +1,13 @@
 import { Router } from "express";
-import { requireAuth } from "../middleware/auth.ts";
-import { requirePermission } from "../middleware/requirePermission.ts";
+import { requireAuth } from "../middleware/auth";
+import { requirePermission } from "../middleware/requirePermission";
 import {
   createCandidate,
   getCandidates,
   getCandidate,
   updateCandidate,
   deleteCandidate,
-} from "../controllers/candidate.controller.ts";
+} from "../controllers/candidate.controller";
 
 const candidateRouter = Router();
 

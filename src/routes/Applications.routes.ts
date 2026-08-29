@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { requireAuth } from "../middleware/auth.ts";
+import { requireAuth } from "../middleware/auth";
 
 
 const applicationRouter = Router();
 
-import { createApplication, getApplications, deleteApplication } from "../controllers/orgApplication.controller.ts";
+import { createApplication, getApplications, deleteApplication } from "../controllers/orgApplication.controller";
 
 applicationRouter.post("/", createApplication);
 applicationRouter.get("/", getApplications);

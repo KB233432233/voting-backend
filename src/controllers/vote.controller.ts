@@ -1,20 +1,20 @@
 import type { Response } from "express";
-import type { AuthenticatedRequest } from "../types/auth.ts";
-import prisma from "../config/db.ts";
+import type { AuthenticatedRequest } from "../types/auth";
+import prisma from "../config/db";
 import { z } from "zod";
-import { generateSnowflakeIdBigInt } from "../utils/snowflake.ts";
+import { generateSnowflakeIdBigInt } from "../utils/snowflake";
 import crypto from "crypto";
-import { relayerQueue } from "../config/queue.ts";
+import { relayerQueue } from "../config/queue";
 import { Prisma } from "@prisma/client";
 import {
   getPollChainState,
   chainStateToStatus,
-} from "../utils/chainVoting.ts";
+} from "../utils/chainVoting";
 import {
   buildVoteTxData,
   getVotingContractAddress,
-} from "../config/contract.ts";
-import { relayerWorker } from "../workers/relayer.worker.ts";
+} from "../config/contract";
+import { relayerWorker } from "../workers/relayer.worker";
 
 // Validation Schemas
 const createVoteSchema = z.object({

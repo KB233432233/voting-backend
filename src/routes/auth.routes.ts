@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { challenge, verify, refresh, getMe, syncRole, logout } from "../controllers/auth.controller.ts";
-import { requireAuth } from "../middleware/auth.ts";
-import { authLimiter } from "../middleware/rateLimit.ts"; // Create this (see Step 3)
+import { challenge, verify, refresh, getMe, syncRole, logout } from "../controllers/auth.controller";
+import { requireAuth } from "../middleware/auth";
+import { authLimiter } from "../middleware/rateLimit"; // Create this (see Step 3)
 
 const authRouter = Router();
 

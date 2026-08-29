@@ -1,6 +1,6 @@
 import type { JwtPayload } from "jsonwebtoken";
 import jwt from "jsonwebtoken";
-import type { JWTPayload, UserRole } from "../types/auth.ts";
+import type { JWTPayload, UserRole } from "../types/auth";
 
 export function verifyAccessToken(token: string, secret: string): JWTPayload {
   const decoded = jwt.verify(token, secret, { algorithms: ["HS256"] });

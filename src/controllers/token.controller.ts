@@ -1,13 +1,13 @@
 import type { Response } from "express";
-import type { AuthenticatedRequest } from "../types/auth.ts";
-import prisma from "../config/db.ts";
+import type { AuthenticatedRequest } from "../types/auth";
+import prisma from "../config/db";
 import crypto from "crypto";
 import { z } from "zod";
-import { generateSnowflakeIdBigInt } from "../utils/snowflake.ts";
+import { generateSnowflakeIdBigInt } from "../utils/snowflake";
 import {
   getPollChainState,
   chainStateToStatus,
-} from "../utils/chainVoting.ts";
+} from "../utils/chainVoting";
 
 const requestTokenSchema = z.object({
   pollId: z.string().transform((val) => BigInt(val)),

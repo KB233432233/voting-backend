@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { requireAuth } from "../middleware/auth.ts";
-import { requirePermission } from "../middleware/requirePermission.ts";
-import { createVote, getVotes, getVote, deleteVote } from "../controllers/vote.controller.ts";
+import { requireAuth } from "../middleware/auth";
+import { requirePermission } from "../middleware/requirePermission";
+import { createVote, getVotes, getVote, deleteVote } from "../controllers/vote.controller";
 
 const voteRouter = Router();
 
