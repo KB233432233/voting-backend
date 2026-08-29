@@ -1,46 +1,28 @@
 {
   "compilerOptions": {
-    // File Layout
-    // "rootDir": "./src",
-    // "outDir": "./dist",
+    // Output and source layout
+    "rootDir": "./src",
+    "outDir": "./dist",
 
-    // Environment Settings
-    // See also https://aka.ms/tsconfig/module
-    "module": "commonjs",
-    "target": "ES2020",
+    // Environment: Node.js with ES Modules
+    "target": "ES2022",
+    "module": "nodenext",                // Output ES modules
+    "moduleResolution": "nodenext",      // Modern Node module resolution
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
     "types": ["node"],
-    // For nodejs:
-    // "lib": ["esnext"],
-    // "types": ["node"],
-    // and npm install -D @types/node
 
-    // Other Outputs
-    "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
-
-    // Stricter Typechecking Options
-    "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
-
-    // Style Options
-    // "noImplicitReturns": true,
-    // "noImplicitOverride": true,
-    // "noUnusedLocals": true,
-    // "noUnusedParameters": true,
-    // "noFallthroughCasesInSwitch": true,
-    // "noPropertyAccessFromIndexSignature": true,
-
-    // Recommended Options
+    // Type-checking strictness
     "strict": true,
-    "jsx": "react-jsx",
-    "verbatimModuleSyntax": false,
-    "isolatedModules": true,
-    "noUncheckedSideEffectImports": true,
-    "moduleDetection": "force",
-    "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+
+    // Additional outputs
+    "sourceMap": true,
+
+    // Emit output (no longer disabled)
+    "noEmit": false
   },
-  "include": ["src/**/*"],           // Only compile files in src/
-  "exclude": ["node_modules", "dist", "prisma", "**/*.test.ts"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "prisma"]
 }
